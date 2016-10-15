@@ -1,0 +1,6 @@
+D:\Dima\Projects\NeuralNetwork\NeuralNetwork\bin\Debug\NeuralNetwork.exe.config
+D:\Dima\Projects\NeuralNetwork\NeuralNetwork\bin\Debug\NeuralNetwork.exe
+D:\Dima\Projects\NeuralNetwork\NeuralNetwork\bin\Debug\NeuralNetwork.pdb
+D:\Dima\Projects\NeuralNetwork\NeuralNetwork\obj\Debug\NeuralNetwork.csprojResolveAssemblyReference.cache
+D:\Dima\Projects\NeuralNetwork\NeuralNetwork\obj\Debug\NeuralNetwork.exe
+D:\Dima\Projects\NeuralNetwork\NeuralNetwork\obj\Debug\NeuralNetwork.pdb
