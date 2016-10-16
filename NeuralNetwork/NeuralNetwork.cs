@@ -30,6 +30,7 @@ namespace NeuralNetwork
         }
         private void InitializeWeights()
         {
+            Random rand = new Random();
             weights = new double[layers.Length - 1][,];
             for (int i = 0; i < layers.Length - 1; i++)
             {
@@ -38,7 +39,7 @@ namespace NeuralNetwork
                 {
                     for (int k = 0; k < layers[i + 1].Length; k++)
                     {
-                        weights[i][j, k] = new Random().NextDouble()-0.5d;
+                        weights[i][j, k] = rand.NextDouble()-0.5d;
                     }
                 }
             }

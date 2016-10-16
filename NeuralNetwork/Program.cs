@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NeuralNetwork
@@ -17,11 +18,20 @@ namespace NeuralNetwork
             Console.WriteLine(net);
             for (int i = 0; i < net.weights.Length; i++)
             {
-                Console.WriteLine(net.weights[i].ToString());
+                Console.WriteLine("Layer {0}", i);
+                for (int j = 0; j < net.layers[i].Length+1; j++)
+                {
+                    for (int k = 0; k < net.layers[i + 1].Length; k++)
+                    {
+                        Console.WriteLine("weight [{0},{1}] = {2}",j,k,net.weights[i][j,k]);
+                    }
+                }
             }
             getResults(net);
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 4; i++)
             {
+                Console.WriteLine("Training "+i);
+                Thread.Sleep(10);
                 train(net);
             }
             getResults(net);
