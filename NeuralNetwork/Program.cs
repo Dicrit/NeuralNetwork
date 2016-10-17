@@ -28,10 +28,10 @@ namespace NeuralNetwork
                 }
             }
             getResults(net);
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 1000; i++)
             {
-                Console.WriteLine("Training "+i);
-                Thread.Sleep(10);
+                //Console.WriteLine("Training "+i);
+                //Thread.Sleep(10);
                 train(net);
             }
             getResults(net);

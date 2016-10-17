@@ -76,17 +76,17 @@ namespace NeuralNetwork
                     {
                         weights[layer - 1][prev, cur] += learnRate * err[layer][cur] * layers[layer - 1][prev];
                     }
-                    weights[layer - 1][layers[layer - 1].Length, cur] += learnRate * err[layer][cur];
+                    weights[layer - 1][layers[layer - 1].Length, cur] += learnRate * err[layer][cur];//обновить смещение
                 }
             }
         }
         private double sigmoid(double val)
         {
-            return (val * (1.0 + Math.Exp(-val)));
+            return (1 / (1.0 + Math.Exp(-val)));
         }
         private double sigmoidDerivative(double val)
         {
-            return (val * (1.0 -val));
+            return (val * (1.0 - val));
         }
         public double[] getResult(double[] inps)
         {
@@ -101,6 +101,7 @@ namespace NeuralNetwork
                     {
                         sum += layers[layer - 1][prev] * weights[layer-1][prev,cur];
                     }
+                    sum += weights[layer - 1][layers[layer - 1].Length - 1, cur];
                     layers[layer][cur] = sigmoid(sum);
                 }
             }
