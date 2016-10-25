@@ -13,19 +13,19 @@ namespace NeuralNetwork
         public double[][,] weights; //MAKE PRIVATE
         public NeuralNetwork(int inputs,int outputs, int[] LayersSize = null)
         {
-            //this.inputs = new double[inputs];
-            //this.outputs = new double[outputs];
-            
-            layers = new double[LayersSize.Length+2][];
-            layers[0] = new double[inputs];
             if (LayersSize != null)
             {
+                layers = new double[LayersSize.Length + 2][];
                 for (int i = 0; i < LayersSize.Length; i++)
                 {
-                    layers[i+1] = new double[LayersSize[i]];
+                    layers[i + 1] = new double[LayersSize[i]];
                 }
             }
-            layers[LayersSize.Length + 1] = new double[outputs];
+            else layers = new double[2][];
+
+
+            layers[0] = new double[inputs];
+            layers[layers.Length - 1] = new double[outputs];
             InitializeWeights();
         }
         private void InitializeWeights()
@@ -51,14 +51,15 @@ namespace NeuralNetwork
         public void train(double[] inps, double[] outps)
         {
             checkValues(inps, outps);
-            double[] results = getResult(inps);
+            //double[] results = getResult(inps);
+            getResult(inps);
             double[][] err = new double[layers.Length][];
             err[layers.Length - 1] = new double[layers[layers.Length - 1].Length];
             for (int o = 0; o < layers[layers.Length - 1].Length; o++) //Ошибка выходного слоя
             {
                 err[layers.Length - 1][o] = (outps[o] - layers[layers.Length - 1][o]) * sigmoidDerivative(layers[layers.Length - 1][o]);
             }
-            for (int layer = layers.Length - 1; layer > 0; layer--)
+            for (int layer = layers.Length - 1; layer > 0; layer--) //Ошибки входного и скрытого слоев
             {
                 err[layer-1] = new double[layers[layer-1].Length];
                 for (int cur = 0; cur < layers[layer - 1].Length; cur++)

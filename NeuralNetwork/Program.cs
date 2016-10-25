@@ -15,7 +15,8 @@ namespace NeuralNetwork
 
         static void Main(string[] args)
         {
-            NeuralNetwork net = new NeuralNetwork(2,1,new int[] {2});
+            NeuralNetwork net = new NeuralNetwork(2,1,new int[] {3});
+            //NeuralNetwork net = new NeuralNetwork(2, 1);
             Console.WriteLine(net);
             for (int i = 0; i < net.weights.Length; i++)
             {
@@ -29,10 +30,8 @@ namespace NeuralNetwork
                 }
             }
             getResults(net);
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 10000; i++)
             {
-                //Console.WriteLine("Training "+i);
-                //Thread.Sleep(10);
                 train(net);
             }
             getResults(net);
@@ -45,6 +44,7 @@ namespace NeuralNetwork
             net.train(new double[] { 0, 1 }, new double[] { 1 });
             net.train(new double[] { 1, 0 }, new double[] { 1 });
             net.train(new double[] { 1, 1 }, new double[] { 0 });
+
         }
 
         static void getResults(NeuralNetwork net)
