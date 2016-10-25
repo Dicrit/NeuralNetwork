@@ -12,6 +12,7 @@ namespace NeuralNetwork
         static List<double> results = new List<double>();
 
 
+
         static void Main(string[] args)
         {
             NeuralNetwork net = new NeuralNetwork(2,1,new int[] {2});

@@ -101,7 +101,7 @@ namespace NeuralNetwork
                     {
                         sum += layers[layer - 1][prev] * weights[layer-1][prev,cur];
                     }
-                    sum += weights[layer - 1][layers[layer - 1].Length - 1, cur];
+                    sum += weights[layer - 1][layers[layer - 1].Length, cur];
                     layers[layer][cur] = sigmoid(sum);
                 }
             }
