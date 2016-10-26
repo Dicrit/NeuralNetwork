@@ -9,9 +9,14 @@ namespace NeuralNetwork
     class NeuralNetwork
     {
         public double learnRate = 0.2;
-        public double[][] layers; //PRIVATE!!!
-        public double[][,] weights; //MAKE PRIVATE
+        public double[][] layers;
+        public double[][,] weights;
         public NeuralNetwork(int inputs,int outputs, int[] LayersSize = null)
+        {
+            Initialize(inputs, outputs, LayersSize);
+            InitializeWeights();
+        }
+        private void Initialize(int inputs, int outputs, int[] LayersSize)
         {
             if (LayersSize != null)
             {
@@ -22,11 +27,8 @@ namespace NeuralNetwork
                 }
             }
             else layers = new double[2][];
-
-
             layers[0] = new double[inputs];
             layers[layers.Length - 1] = new double[outputs];
-            InitializeWeights();
         }
         private void InitializeWeights()
         {
@@ -71,7 +73,7 @@ namespace NeuralNetwork
                     }
                     err[layer-1][cur] *= sigmoidDerivative(layers[layer-1][cur]);
                 }
-                for (int cur = 0; cur < layers[layer].Length; cur++)
+                for (int cur = 0; cur < layers[layer].Length; cur++) //изменение весов
                 {
                     for (int prev = 0; prev < layers[layer-1].Length; prev++)
                     {
@@ -118,4 +120,32 @@ namespace NeuralNetwork
             return  a;
         }
     }
+    class NeuralNetworkChoise : NeuralNetwork
+    {
+        private Dictionary<int, string> dictionary;
+        public new string getResult(double[] inps)
+        {
+            double[] outps = base.getResult(inps);
+            double val = outps.Max();
+            int p = Array.IndexOf(outps, val);
+            return dictionary[p];
+        }
+        public void train(double[] inps, int output)
+        {
+            double[] outps = new double[layers[layers.Length - 1].Length];
+            for (int i = 0; i < outps.Length; i++)
+            {
+                outps[i] = 0;
+            }
+            outps[output] = 1;
+            base.train(inps, outps);
+        }
+        public NeuralNetworkChoise(int inputs, Dictionary<int, string> outputs, int[] LayerSize = null)
+            : base(inputs, outputs.Count, LayerSize)
+        {
+            dictionary = outputs;
+        }
+    }
+
+
 }

@@ -15,20 +15,44 @@ namespace NeuralNetwork
 
         static void Main(string[] args)
         {
-            NeuralNetwork net = new NeuralNetwork(2,1,new int[] {3});
-            //NeuralNetwork net = new NeuralNetwork(2, 1);
-            Console.WriteLine(net);
-            for (int i = 0; i < net.weights.Length; i++)
+            //FirstTest();
+            ThirdTest();
+            //SecondTest();
+            Console.ReadLine();
+        }
+        static void SecondTest()
+        {
+            Dictionary<int, String> dictionary = new Dictionary<int, string>();
+            dictionary.Add(0, "0");
+            dictionary.Add(1, "1");
+            NeuralNetworkChoise net = new NeuralNetworkChoise(2, dictionary, new int[]{2});
+            getResults(net);
+            for (int i = 0; i < 10000; i++)
             {
-                Console.WriteLine("Layer {0}", i);
-                for (int j = 0; j < net.layers[i].Length+1; j++)
-                {
-                    for (int k = 0; k < net.layers[i + 1].Length; k++)
-                    {
-                        Console.WriteLine("weight [{0},{1}] = {2}",j,k,net.weights[i][j,k]);
-                    }
-                }
+                train(net);
             }
+            getResults(net);
+        }
+        static void train(NeuralNetworkChoise net)
+        {
+            net.train(new double[] { 0, 0 }, 0);
+            net.train(new double[] {1, 0 }, 1);
+            net.train(new double[] {0, 1 }, 1);
+            net.train(new double[] { 1, 1 }, 0);
+        }
+        static void getResults(NeuralNetworkChoise net)
+        {
+            Console.WriteLine("{");
+            Console.WriteLine(net.getResult(new double[] { 0, 0 }));
+            Console.WriteLine(net.getResult(new double[] { 1, 0 }));
+            Console.WriteLine(net.getResult(new double[] { 0, 1 }));
+            Console.WriteLine(net.getResult(new double[] { 1, 1 }));
+            Console.WriteLine("}");
+        }
+
+        static void FirstTest()
+        {
+            NeuralNetwork net = new NeuralNetwork(2, 1, new int[] { 3 });
             getResults(net);
             for (int i = 0; i < 10000; i++)
             {
@@ -36,7 +60,37 @@ namespace NeuralNetwork
             }
             getResults(net);
 
-            Console.ReadLine();
+        }
+        static void ThirdTest()
+        {
+            NeuralNetwork net = new NeuralNetwork(2, 2, new int[] {3});
+            getResults3(net);
+            for (int i = 0; i < 10000; i++)
+            {
+                train3(net);
+            }
+            getResults3(net);
+        }
+
+        private static void getResults3(NeuralNetwork net)
+        {
+            Console.WriteLine("{");
+            Console.WriteLine(net.getResult(new double[] { 0, 0 })[0]
+                + "-----" + net.getResult(new double[] { 0, 0 })[1]);
+            Console.WriteLine(net.getResult(new double[] { 0, 1 })[0]
+                + "-----" + net.getResult(new double[] { 0, 1 })[1]);
+            Console.WriteLine(net.getResult(new double[] { 1, 0 })[0]
+                + "-----" + net.getResult(new double[] { 1, 0 })[1]);
+            Console.WriteLine(net.getResult(new double[] { 1, 1 })[0]
+                + "-----" + net.getResult(new double[] { 1, 1 })[1]);
+            Console.WriteLine("}");
+        }
+        static void train3(NeuralNetwork net)
+        {
+            net.train(new double[] { 0, 0 }, new double[] { 0,0 });
+            net.train(new double[] { 0, 1 }, new double[] { 1,1 });
+            net.train(new double[] { 1, 0 }, new double[] { 1,1 });
+            net.train(new double[] { 1, 1 }, new double[] { 0,0 });
         }
         static void train(NeuralNetwork net)
         {
